@@ -11,16 +11,20 @@ func main() {
 
 	r.GET("/", rootHandler)
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	r.GET("/product/:id", productHandler)
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
 
 func rootHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "root",
+	})
+}
+
+func productHandler(c *gin.Context) {
+	id := c.Param("id")
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": id,
 	})
 }
